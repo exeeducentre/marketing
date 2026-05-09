@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EXE - Single Ad Generator (Konsep Self-Diagnosis)</title>
+    <title>EXE - IG Single Ad Generator</title>
     
     <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- html2canvas -->
+    <!-- Pustaka html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
@@ -40,22 +40,18 @@
     </script>
 
     <style>
+        /* Kasang tukang luar (abu-abu) */
         body { background-color: #e2e8f0; transition: background-color 0s; }
         
-        /* Kontainer Pratinjau (Preview) */
         .preview-wrapper {
             width: 378px;
             height: 472.5px;
             position: relative;
             flex-shrink: 0;
             border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            background-color: white;
-            overflow: hidden;
-            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
-        /* Kanvas Asli untuk Instagram (1080x1350) */
         .slide-content {
             width: 1080px !important;
             height: 1350px !important;
@@ -65,7 +61,7 @@
             left: 0;
             transform-origin: top left;
             transform: scale(0.35); /* Mode Preview */
-            background-color: #f8fafc; /* Latar belakang abu-abu sangat muda (seperti kertas) */
+            background-color: #ffffff; /* Memastikan background slide putih */
             overflow: hidden; 
             display: flex;
             flex-direction: column;
@@ -76,151 +72,140 @@
         }
         
         .bg-pattern {
-            background-image: radial-gradient(#d81b60 1.5px, transparent 1.5px);
-            background-size: 30px 30px;
-            background-color: transparent;
-            opacity: 0.04;
+            background-image: radial-gradient(#d81b60 2px, transparent 2px);
+            background-size: 40px 40px;
+            background-color: white;
+            opacity: 0.05;
             position: absolute;
             inset: 0;
         }
 
         .lh-tight { line-height: 1.1 !important; }
         .lh-none { line-height: 1 !important; }
-
-        /* Kertas Checklist */
-        .checklist-paper {
-            background: white;
-            border-radius: 40px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            border: 4px solid #f1f5f9;
+        
+        table, th, td {
+            border: 2px solid #1f2022 !important;
         }
     </style>
 </head>
 <body class="p-8 text-gray-800 antialiased font-sans flex flex-col items-center overflow-x-hidden min-h-screen">
 
-    <div class="mb-10 text-center max-w-2xl">
-        <h1 class="text-3xl font-bold text-brand-dark mb-2">⚡ A/B Test: Single Image Ad</h1>
-        <p class="text-gray-600 mb-4">Konsep A: <strong>Self-Diagnosis / Checklist</strong>. Desain ini dibuat padat, menohok masalah, dan mengarahkan interaksi ke caption.</p>
-        
-        <button onclick="exportSingleAd()" id="btn-export" class="bg-gradient-brand text-white py-3 px-8 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto">
-            <i class="fas fa-download"></i> Download Gambar Ads
-        </button>
+    <div class="mb-8 text-center max-w-2xl">
+        <h1 class="text-3xl font-bold text-brand-dark mb-2">📸 EXE Single Ad Generator</h1>
+        <p class="text-gray-600 mb-4">Menggunakan <strong>sistem render bawaan yang stabil</strong>. Tampilan dijamin sama persis dengan kode carousel Anda sebelumnya.</p>
     </div>
 
-    <!-- WADAH GENERATOR -->
-    <div class="preview-wrapper" id="wrap-slide">
-        <!-- AWAL KONTEN ADS (1080x1350) -->
-        <div class="slide-content relative" id="slide-ad">
-            <!-- Background Texture -->
-            <div class="bg-pattern"></div>
-            
-            <!-- Elemen Desain Latar -->
-            <div class="absolute -top-40 -right-40 w-96 h-96 bg-pink-100 rounded-full blur-3xl opacity-60"></div>
-            <div class="absolute top-1/2 -left-40 w-96 h-96 bg-yellow-100 rounded-full blur-3xl opacity-50"></div>
+    <div class="flex overflow-x-auto gap-8 pb-10 w-full max-w-[1600px] justify-center px-4 snap-x">
+        
+        <!-- ================= SLIDE SINGLE AD ================= -->
+        <div class="flex flex-col gap-4 snap-center">
+            <div class="preview-wrapper" id="wrap-slide-1">
+                <div class="slide-content bg-slate-50" id="slide-1">
+                    <div class="bg-pattern"></div>
+                    <div class="relative z-10 flex-1 flex flex-col items-center px-16 pt-12 pb-8 text-center justify-between">
+                        
+                        <!-- HEADER (LOGO & WARNING) -->
+                        <div class="w-full flex justify-between items-center mb-6">
+                            <!-- Tempat logo (Diperbaiki: Tidak akan hilang, ada placeholder jika gagal load) -->
+                            <img src="logo.png" alt="Logo EXE" class="h-16 exe-logo object-contain" onerror="this.src='https://placehold.co/300x100/1f2022/ffffff?text=LOGO+EXE'">
+                            
+                            <div class="bg-red-100 text-red-600 text-[24px] font-bold px-6 py-2 rounded-full border-[3px] border-red-200 flex items-center gap-3">
+                                <i class="fas fa-exclamation-triangle"></i> TKA SMA DIMAJUKAN
+                            </div>
+                        </div>
 
-            <!-- Bagian Atas (Hook) -->
-            <div class="relative z-10 px-16 pt-16 pb-6 flex flex-col items-center text-center">
-                <div class="w-full flex justify-between items-center mb-8">
-                    <!-- Logo yang memanggil file logo.png -->
-                    <img src="logo.png" alt="Logo EXE" class="h-16 w-auto object-contain" onerror="this.src='https://placehold.co/300x100/1f2022/ffffff?text=LOGO+EXE'">
-                    <div class="bg-red-100 text-red-600 text-[24px] font-bold px-6 py-2 rounded-full border-2 border-red-200 flex items-center gap-3">
-                        <i class="fas fa-exclamation-triangle"></i> TKA SMA DIMAJUKAN
-                    </div>
-                </div>
+                        <!-- JUDUL / HOOK -->
+                        <div class="w-full mb-6">
+                            <h1 class="text-[75px] font-black text-brand-dark lh-tight mb-3 tracking-tight">
+                                Cek 3 Tanda Pondasi<br>Matematikamu <span class="text-brand-pink underline decoration-8 underline-offset-8">BELUM SIAP!</span>
+                            </h1>
+                            <p class="text-[32px] font-medium text-gray-500">
+                                Coba jujur, kamu masih sering ngalamin ini nggak?
+                            </p>
+                        </div>
 
-                <h1 class="text-[75px] font-black text-brand-dark lh-tight mb-3 tracking-tight">
-                    Cek 3 Tanda Pondasi<br>Matematikamu <span class="text-brand-pink underline decoration-8 underline-offset-8">BELUM SIAP!</span>
-                </h1>
-                <p class="text-[32px] font-medium text-gray-500 mt-2">
-                    Coba jujur, kamu masih sering ngalamin ini nggak?
-                </p>
-            </div>
+                        <!-- CHECKLIST (MENGGUNAKAN STRUKTUR DARI CAROUSEL SLIDE 2) -->
+                        <div class="space-y-4 w-full text-left mb-6">
+                            <div class="flex items-center gap-5 bg-white p-5 rounded-[1.5rem] border-[4px] border-gray-100">
+                                <div class="w-16 h-16 bg-red-50 rounded-2xl border-[3px] border-red-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-times text-[40px] text-red-500"></i>
+                                </div>
+                                <p class="text-[34px] font-semibold text-gray-700 lh-tight">
+                                    Ngitung <span class="text-brand-dark font-extrabold">pecahan, akar, & desimal</span> aja masih sering salah / ragu-ragu.
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center gap-5 bg-white p-5 rounded-[1.5rem] border-[4px] border-gray-100">
+                                <div class="w-16 h-16 bg-red-50 rounded-2xl border-[3px] border-red-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-times text-[40px] text-red-500"></i>
+                                </div>
+                                <p class="text-[34px] font-semibold text-gray-700 lh-tight">
+                                    Aljabar dasar bingung, sering banget <span class="text-brand-dark font-extrabold">keliru pas pindah ruas.</span>
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center gap-5 bg-white p-5 rounded-[1.5rem] border-[4px] border-gray-100">
+                                <div class="w-16 h-16 bg-red-50 rounded-2xl border-[3px] border-red-100 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-times text-[40px] text-red-500"></i>
+                                </div>
+                                <p class="text-[34px] font-semibold text-gray-700 lh-tight">
+                                    Nggak ngerti polanya, <span class="text-brand-dark font-extrabold">mentok kalau nggak dikasih hafal rumus.</span>
+                                </p>
+                            </div>
+                        </div>
 
-            <!-- Bagian Tengah (The Checklist) -->
-            <div class="relative z-10 px-16 flex-1 w-full flex flex-col justify-center gap-5 pb-10">
-                
-                <!-- Poin 1 -->
-                <div class="flex items-center gap-6 bg-white p-6 rounded-[2rem] border-[4px] border-gray-100 shadow-[0_10px_20px_rgba(0,0,0,0.03)]">
-                    <div class="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center flex-shrink-0 border-2 border-red-100">
-                        <i class="fa-solid fa-xmark text-[40px] text-red-500"></i>
-                    </div>
-                    <p class="text-[36px] font-semibold text-gray-700 lh-tight">
-                        Ngitung <span class="text-brand-dark font-bold">pecahan, akar, & desimal</span> aja masih sering salah / ragu-ragu.
-                    </p>
-                </div>
+                        <!-- CTA BAWAH (MENGGUNAKAN STRUKTUR DARI CAROUSEL SLIDE 4) -->
+                        <div class="w-full bg-brand-dark text-white pt-12 pb-10 px-10 rounded-[3rem] relative mt-auto border-[6px] border-brand-yellow">
+                            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-brand-yellow text-brand-dark w-20 h-20 rounded-full flex items-center justify-center text-[35px] border-[8px] border-white">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            
+                            <h3 class="text-[42px] font-black lh-none text-brand-yellow tracking-tighter mb-3">
+                                ATASI DI MATRIKULASI LIBURAN!
+                            </h3>
+                            <p class="text-[28px] font-semibold text-gray-300 uppercase tracking-widest mb-4">
+                                Hubungi Kami Sekarang:
+                            </p>
 
-                <!-- Poin 2 -->
-                <div class="flex items-center gap-6 bg-white p-6 rounded-[2rem] border-[4px] border-gray-100 shadow-[0_10px_20px_rgba(0,0,0,0.03)]">
-                    <div class="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center flex-shrink-0 border-2 border-red-100">
-                        <i class="fa-solid fa-xmark text-[40px] text-red-500"></i>
-                    </div>
-                    <p class="text-[36px] font-semibold text-gray-700 lh-tight">
-                        Aljabar dasar bingung, sering banget <span class="text-brand-dark font-bold">keliru pas pindah ruas.</span>
-                    </p>
-                </div>
+                            <!-- TOMBOL WHATSAPP BESAR -->
+                            <div class="w-full border-[5px] border-[#41db79] bg-[#25D366] text-white py-4 px-6 rounded-full flex flex-col items-center justify-center gap-3">
+                                <div class="text-[50px] font-black flex items-center gap-5 lh-none text-white">
+                                    <i class="fab fa-whatsapp text-[60px]"></i> 0851-4152-5668
+                                </div>
+                            </div>
+                        </div>
 
-                <!-- Poin 3 -->
-                <div class="flex items-center gap-6 bg-white p-6 rounded-[2rem] border-[4px] border-gray-100 shadow-[0_10px_20px_rgba(0,0,0,0.03)]">
-                    <div class="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center flex-shrink-0 border-2 border-red-100">
-                        <i class="fa-solid fa-xmark text-[40px] text-red-500"></i>
-                    </div>
-                    <p class="text-[36px] font-semibold text-gray-700 lh-tight">
-                        Nggak ngerti polanya, <span class="text-brand-dark font-bold">mentok kalau nggak dikasih hafal rumus.</span>
-                    </p>
-                </div>
-
-            </div>
-
-            <!-- Bagian Bawah (CTA to Caption) -->
-            <div class="relative z-10 w-full mt-auto">
-                <div class="bg-brand-dark text-white pt-10 pb-8 px-12 text-center rounded-t-[3rem] mx-4 relative overflow-hidden border-t-8 border-brand-yellow">
-                    <!-- Aksen panah -->
-                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-brand-yellow text-brand-dark w-16 h-16 rounded-full flex items-center justify-center text-[30px] shadow-lg border-8 border-[#f8fafc]">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-
-                    <h3 class="text-[48px] font-black text-brand-yellow mt-4 lh-tight mb-3">
-                        ATASI DI MATRIKULASI LIBURAN!
-                    </h3>
-                    <p class="text-[30px] text-gray-300 font-medium mb-4">
-                        Hubungi kami sekarang di:
-                    </p>
-                    
-                    <div class="mt-2 bg-[#25D366] rounded-full py-4 px-10 inline-block shadow-lg border-4 border-green-400/50">
-                        <p class="text-[45px] font-black text-white tracking-wide flex items-center gap-4 lh-none">
-                            <i class="fab fa-whatsapp text-[50px]"></i> 0851-4152-5668
-                        </p>
                     </div>
                 </div>
             </div>
-            
+            <button onclick="exportSlide('slide-1')" id="btn-slide-1" class="bg-brand-dark text-white py-3 px-6 rounded-xl font-semibold shadow-md hover:bg-brand-pink transition flex items-center justify-center gap-2">
+                <i class="fas fa-download"></i> Download Gambar Ads
+            </button>
         </div>
-        <!-- AKHIR KONTEN ADS -->
+
     </div>
 
     <script>
-        // Memastikan font sudah dimuat sebelum diekspor
         document.fonts.ready.then(() => {
-            console.log("Fonts ready.");
+            console.log("Font siap.");
         });
 
-        async function exportSingleAd() {
-            const btn = document.getElementById('btn-export');
-            const originalSlide = document.getElementById('slide-ad');
-            const wrapper = document.getElementById('wrap-slide');
+        async function exportSlide(slideId) {
+            const btn = document.getElementById('btn-' + slideId);
+            const originalSlide = document.getElementById(slideId);
+            const wrapper = document.getElementById('wrap-' + slideId);
             
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses Gambar...';
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Memproses...';
             btn.disabled = true;
 
-            // Trik untuk menghindari background abu-abu body ikut ter-render
+            // --- TRIK MENCEGAH ABU-ABU BOCOR ---
             const bodyOriginalBg = document.body.style.backgroundColor;
             document.body.style.backgroundColor = '#ffffff';
 
             try {
                 await document.fonts.ready;
                 
-                // Lepaskan dari mode preview
                 originalSlide.style.transform = 'none';
                 originalSlide.style.position = 'fixed';
                 originalSlide.style.top = '0px';
@@ -228,9 +213,9 @@
                 originalSlide.style.zIndex = '9999';
                 
                 window.scrollTo(0, 0);
+
                 document.body.appendChild(originalSlide);
 
-                // Tunggu sebentar agar render sempurna
                 await new Promise(resolve => setTimeout(resolve, 300));
 
                 const canvas = await html2canvas(originalSlide, {
@@ -239,19 +224,21 @@
                     height: 1350,
                     x: 0, 
                     y: 0,
+                    scrollX: 0,
+                    scrollY: 0,
                     useCORS: true,
                     backgroundColor: '#ffffff',
                     logging: false
                 });
 
-                // Kembalikan susunan ke mode preview
+                // Kembalikan ke susunan awal
                 wrapper.appendChild(originalSlide);
                 originalSlide.style.position = 'absolute';
                 originalSlide.style.transform = 'scale(0.35)';
                 originalSlide.style.zIndex = '1';
                 document.body.style.backgroundColor = bodyOriginalBg;
 
-                // Proses Download
+                // Download gambar
                 const link = document.createElement('a');
                 link.download = `EXE_Single_Ad_A_B_Test.png`;
                 link.href = canvas.toDataURL('image/png', 1.0);
@@ -259,9 +246,8 @@
 
             } catch (error) {
                 console.error("Gagal export:", error);
-                alert("Gagal mengunduh gambar. Silakan coba lagi.");
+                alert("Gagal mengunduh gambar. Pastikan koneksi internet stabil.");
                 
-                // Fallback reset susunan jika terjadi error
                 wrapper.appendChild(originalSlide);
                 originalSlide.style.position = 'absolute';
                 originalSlide.style.transform = 'scale(0.35)';
