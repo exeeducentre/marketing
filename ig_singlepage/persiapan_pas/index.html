@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXE - IG Single Ad Generator</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Pustaka html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            pink: '#d81b60',
+                            orange: '#f57c00',
+                            yellow: '#fbc02d',
+                            dark: '#1f2022'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Kasang tukang luar (abu-abu) */
+        body { background-color: #e2e8f0; transition: background-color 0s; }
+        
+        .preview-wrapper {
+            width: 378px;
+            height: 472.5px;
+            position: relative;
+            flex-shrink: 0;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .slide-content {
+            width: 1080px !important;
+            height: 1350px !important;
+            max-height: 1350px !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: top left;
+            transform: scale(0.35); /* Mode Preview */
+            background-color: #ffffff; /* Memastikan background slide putih */
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-gradient-brand {
+            background: linear-gradient(135deg, #d81b60 0%, #f57c00 50%, #fbc02d 100%);
+        }
+        
+        .bg-pattern {
+            background-image: radial-gradient(#d81b60 2px, transparent 2px);
+            background-size: 40px 40px;
+            background-color: white;
+            opacity: 0.05;
+            position: absolute;
+            inset: 0;
+        }
+
+        .lh-tight { line-height: 1.1 !important; }
+        .lh-none { line-height: 1 !important; }
+        
+        table, th, td {
+            border: 2px solid #1f2022 !important;
+        }
+    </style>
+</head>
+<body class="p-8 text-gray-800 antialiased font-sans flex flex-col items-center overflow-x-hidden min-h-screen">
+
+    <div class="mb-8 text-center max-w-2xl">
+        <h1 class="text-3xl font-bold text-brand-dark mb-2">📸 EXE Single Ad Generator (Edisi PAS)</h1>
+        <p class="text-gray-600 mb-4">Menggunakan <strong>sistem offset terbalik</strong>. Ikon di layar sengaja dinaikkan, agar <strong>saat di-print akan jatuh pas di tengah!</strong></p>
+    </div>
+
+    <div class="flex overflow-x-auto gap-8 pb-10 w-full max-w-[1600px] justify-center px-4 snap-x">
+        
+        <!-- ================= SLIDE SINGLE AD ================= -->
+        <div class="flex flex-col gap-4 snap-center">
+            <div class="preview-wrapper" id="wrap-slide-1">
+                <div class="slide-content bg-slate-50" id="slide-1">
+                    <div class="bg-pattern"></div>
+                    <div class="relative z-10 flex-1 flex flex-col items-center px-16 pt-12 pb-8 text-center justify-between">
+                        
+                        <!-- HEADER (LOGO & WARNING) -->
+                        <div class="w-full flex justify-between items-center mb-6">
+                            <!-- Tempat logo (Diperbaiki: Tidak akan hilang, ada placeholder jika gagal load) -->
+                            <img src="logo.png" alt="Logo EXE" class="h-16 exe-logo object-contain" onerror="this.src='https://placehold.co/300x100/1f2022/ffffff?text=LOGO+EXE'">
+                            
+                            <!-- PERBAIKAN: Menggunakan text-center dan align-middle pengganti flex -->
+                            <div class="bg-red-100 text-red-600 text-[24px] font-bold px-6 py-2 rounded-full border-[3px] border-red-200 text-center whitespace-nowrap">
+                                <i class="fas fa-exclamation-triangle align-middle mr-2 relative -top-[10px]"></i><span class="align-middle relative -top-[10px]">UJIAN PAS MAKIN DEKAT</span>
+                            </div>
+                        </div>
+
+                        <!-- JUDUL / HOOK -->
+                        <div class="w-full mb-6">
+                            <h1 class="text-[75px] font-black text-brand-dark lh-tight mb-3 tracking-tight">
+                                Cek 3 Tanda Persiapan<br>PAS Kamu Masih <span class="text-brand-pink underline decoration-8 underline-offset-8">BERANTAKAN!</span>
+                            </h1>
+                            <p class="text-[32px] font-medium text-gray-500">
+                                Coba jujur, belajarnya masih kayak gini nggak?
+                            </p>
+                        </div>
+
+                        <!-- CHECKLIST (MENGGUNAKAN STRUKTUR DARI CAROUSEL SLIDE 2) -->
+                        <div class="space-y-4 w-full text-left mb-6">
+                            <div class="flex items-center gap-5 bg-white p-5 rounded-[1.5rem] border-[4px] border-gray-100">
+                                <!-- PERBAIKAN: line-height = 58px (64px ukuran box dikurang 6px border) untuk kunci mati posisi tengah -->
+                                <div class="w-16 h-16 bg-red-50 rounded-2xl border-[3px] border-red-100 text-center flex-shrink-0" style="line-height: 58px;">
+                                    <i class="fas fa-times text-[40px] text-red-500 align-middle relative -top-[18px]"></i>
+                                </div>
+                                <p class="text-[34px] font-semibold text-gray-700 lh-tight">
+                                    Baru buka materi H-1 ujian, ujung-ujungnya <span class="text-brand-dark font-extrabold">Sistem Kebut Semalam</span> & nge-blank.
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center gap-5 bg-white p-5 rounded-[1.5rem] border-[4px] border-gray-100">
+                                <div class="w-16 h-16 bg-red-50 rounded-2xl border-[3px] border-red-100 text-center flex-shrink-0" style="line-height: 58px;">
+                                    <i class="fas fa-times text-[40px] text-red-500 align-middle relative -top-[18px]"></i>
+                                </div>
+                                <p class="text-[34px] font-semibold text-gray-700 lh-tight">
+                                    Hafal rumusnya, tapi pas <span class="text-brand-dark font-extrabold">ketemu soal HOTS (diubah dikit)</span> langsung bingung.
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center gap-5 bg-white p-5 rounded-[1.5rem] border-[4px] border-gray-100">
+                                <div class="w-16 h-16 bg-red-50 rounded-2xl border-[3px] border-red-100 text-center flex-shrink-0" style="line-height: 58px;">
+                                    <i class="fas fa-times text-[40px] text-red-500 align-middle relative -top-[18px]"></i>
+                                </div>
+                                <p class="text-[34px] font-semibold text-gray-700 lh-tight">
+                                    Numpuk materi setengah semester, <span class="text-brand-dark font-extrabold">nggak tahu harus mulai belajar dari mana dulu.</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CTA BAWAH (MENGGUNAKAN STRUKTUR DARI CAROUSEL SLIDE 4) -->
+                        <div class="w-full bg-brand-dark text-white pt-12 pb-10 px-10 rounded-[3rem] relative mt-auto border-[6px] border-brand-yellow">
+                            
+                            <!-- PERBAIKAN: line-height = 64px (80px ukuran box dikurang 16px border) -->
+                            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-brand-yellow text-brand-dark w-20 h-20 rounded-full text-center text-[35px] border-[8px] border-white" style="line-height: 64px;">
+                                <i class="fas fa-chevron-down align-middle relative -top-[18px]"></i>
+                            </div>
+                            
+                            <h3 class="text-[42px] font-black lh-none text-brand-yellow tracking-tighter mb-3">
+                                KEJAR NILAI PAS BARENG EXE!
+                            </h3>
+                            <p class="text-[28px] font-semibold text-gray-300 uppercase tracking-widest mb-4">
+                                Hubungi Kami Sekarang:
+                            </p>
+
+                            <!-- PERBAIKAN: Menggunakan text-center dan align-middle pengganti flex untuk tombol WhatsApp -->
+                            <div class="w-full border-[5px] border-[#41db79] bg-[#25D366] text-white py-4 px-6 rounded-full text-center">
+                                <div class="text-[50px] font-black text-white whitespace-nowrap">
+                                    <i class="fab fa-whatsapp text-[60px] align-middle mr-4 relative -top-[18px]"></i><span class="align-middle relative -top-[18px]">0851-4152-5668</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <button onclick="exportSlide('slide-1')" id="btn-slide-1" class="bg-brand-dark text-white py-3 px-6 rounded-xl font-semibold shadow-md hover:bg-brand-pink transition flex items-center justify-center gap-2">
+                <i class="fas fa-download"></i> Download Gambar Ads
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        document.fonts.ready.then(() => {
+            console.log("Font siap.");
+        });
+
+        async function exportSlide(slideId) {
+            const btn = document.getElementById('btn-' + slideId);
+            const originalSlide = document.getElementById(slideId);
+            const wrapper = document.getElementById('wrap-' + slideId);
+            
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Memproses...';
+            btn.disabled = true;
+
+            // --- TRIK MENCEGAH ABU-ABU BOCOR ---
+            const bodyOriginalBg = document.body.style.backgroundColor;
+            document.body.style.backgroundColor = '#ffffff';
+
+            try {
+                await document.fonts.ready;
+                
+                originalSlide.style.transform = 'none';
+                originalSlide.style.position = 'fixed';
+                originalSlide.style.top = '0px';
+                originalSlide.style.left = '0px';
+                originalSlide.style.zIndex = '9999';
+                
+                window.scrollTo(0, 0);
+
+                document.body.appendChild(originalSlide);
+
+                await new Promise(resolve => setTimeout(resolve, 300));
+
+                const canvas = await html2canvas(originalSlide, {
+                    scale: 1, 
+                    width: 1080,
+                    height: 1350,
+                    x: 0, 
+                    y: 0,
+                    scrollX: 0,
+                    scrollY: 0,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                });
+
+                // Kembalikan ke susunan awal
+                wrapper.appendChild(originalSlide);
+                originalSlide.style.position = 'absolute';
+                originalSlide.style.transform = 'scale(0.35)';
+                originalSlide.style.zIndex = '1';
+                document.body.style.backgroundColor = bodyOriginalBg;
+
+                // Download gambar
+                const link = document.createElement('a');
+                link.download = `EXE_Single_Ad_PAS.png`; // Update nama file
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+
+            } catch (error) {
+                console.error("Gagal export:", error);
+                alert("Gagal mengunduh gambar. Pastikan koneksi internet stabil.");
+                
+                wrapper.appendChild(originalSlide);
+                originalSlide.style.position = 'absolute';
+                originalSlide.style.transform = 'scale(0.35)';
+                originalSlide.style.zIndex = '1';
+                document.body.style.backgroundColor = bodyOriginalBg;
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
