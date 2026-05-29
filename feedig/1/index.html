@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Carousel - Pembahasan SNBT Eksponen (EXE Edition)</title>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                packages: {'[+]': ['color', 'cancel', 'boldsymbol']} 
+            },
+            loader: {load: ['[tex]/color', '[tex]/cancel', '[tex]/boldsymbol']}
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- html2canvas untuk export gambar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- FontAwesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+        :root {
+            /* Warna Corporate EXE */
+            --brand-pink: #d81b60;
+            --brand-orange: #f57c00;
+            --brand-yellow: #fbc02d;
+            --brand-dark: #1f2022;
+            --brand-light: #f8fafc;
+            
+            --brand-gradient: linear-gradient(135deg, #d81b60 0%, #f57c00 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #222; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 0;
+            gap: 50px; 
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- CONTAINER HALAMAN --- */
+        .instagram-canvas {
+            width: 1080px;
+            height: 1350px;
+            background-color: #ffffff;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* --- HEADER UMUM --- */
+        .header {
+            width: 100%;
+            height: 160px;
+            padding: 30px 60px; 
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* TEXT LOGO SEBAGAI SOLUSI CORS */
+        .exe-text-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .exe-text-logo .exe-main {
+            font-size: 55px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        
+        .exe-text-logo .exe-sub {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .exe-text-logo .exe-sub span:first-child {
+            color: var(--brand-dark);
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+        
+        .exe-text-logo .exe-sub span:last-child {
+            color: var(--brand-pink);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+
+        .header-tagline {
+            font-size: 22px; 
+            color: var(--brand-dark);
+            font-weight: 700;
+            text-transform: lowercase; 
+            letter-spacing: 0.5px;
+            border-bottom: 4px solid var(--brand-yellow);
+            padding-bottom: 5px;
+        }
+
+        /* --- AREA KONTEN --- */
+        .content-area {
+            flex-grow: 1;
+            width: 100%;
+            background-color: #fff;
+            /* Pola Dot mirip website EXE */
+            background-image: radial-gradient(var(--brand-pink) 1px, transparent 1px);
+            background-size: 40px 40px;
+            /* Buat dot sangat transparan menggunakan shadow in-set */
+            box-shadow: inset 0 0 0 2000px rgba(255, 255, 255, 0.97);
+            border-top: 5px solid var(--brand-dark); 
+            padding: 50px 60px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+        }
+
+        /* --- HALAMAN 1: SOAL --- */
+        .main-title {
+            background: var(--brand-gradient);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            font-size: 30px; 
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 6px 6px 0px rgba(31,32,34,0.1);
+            line-height: 1.4;
+        }
+
+        .sub-title {
+            text-align: center;
+            color: var(--brand-dark);
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .question-box {
+            font-size: 28px; 
+            color: var(--brand-dark);
+            line-height: 1.6;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            border: 4px solid var(--brand-dark);
+            margin-bottom: 40px;
+            overflow-wrap: break-word;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .option-item {
+            background: #fff;
+            border: 3px solid #ddd;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--brand-dark);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* --- HALAMAN PEMBAHASAN --- */
+        .concept-box {
+            background: #fff9e6; /* light yellow */
+            border-left: 8px solid var(--brand-yellow);
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 26px;
+            color: #b8860b;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .step-title {
+            font-size: 30px;
+            color: var(--brand-pink);
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .step-desc {
+            font-size: 22px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .math-box {
+            background: rgba(255,255,255,0.9);
+            border: 3px dashed var(--brand-orange);
+            padding: 30px;
+            border-radius: 20px;
+            font-size: 32px;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .highlight-var {
+            display: inline-block;
+            background: #fff0f5; /* light pink */
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 2px solid var(--brand-pink);
+            margin-top: 20px;
+            font-size: 24px;
+            color: var(--brand-pink);
+            font-weight: bold;
+        }
+
+        .final-answer-box {
+            background: #e8f5e9; 
+            border: 3px solid #4CAF50;
+            padding: 25px; 
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* --- HALAMAN OUTRO/WEBSITE --- */
+        .outro-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .profile-circle {
+            width: 250px; 
+            height: 250px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin-bottom: 40px;
+            border: 8px solid var(--brand-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.2);
+            padding: 20px;
+        }
+        
+        .cta-text {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--brand-dark);
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .social-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            background: #fff;
+            border: 3px solid var(--brand-dark);
+            padding: 20px 40px;
+            border-radius: 50px;
+            box-shadow: 6px 6px 0px rgba(31,32,34,0.1);
+            justify-content: center;
+        }
+
+        /* --- FOOTER KECIL --- */
+        .mini-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--brand-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mini-footer span {
+            color: #fff;
+            font-size: 18px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        /* --- TOMBOL EXPORT MELAYANG --- */
+        .export-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--brand-pink);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .export-btn:hover {
+            background-color: #ad144b;
+            transform: scale(1.05);
+        }
+
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .spinner {
+            border: 6px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 6px solid var(--brand-yellow);
+            width: 60px;
+            height: 60px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="export-btn" onclick="exportSemuaSlide()">⬇️ Export 8 Slide (PNG)</button>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div id="loading-text">Sedang memproses slide...</div>
+    </div>
+
+    <!-- ================= HALAMAN 1: SOAL UTAMA ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <!-- PURE TEXT LOGO, ANTI-CORS & HIGH QUALITY -->
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="main-title">PERSIAPAN UTBK SNBT</div>
+            <div class="sub-title">Pengetahuan Kuantitatif - Eksponen (Bentuk Akar)</div>
+            
+            <div class="question-box">
+                Jika $n$ memenuhi:
+                <div style="font-size: 34px; margin: 30px 0; text-align: center;">
+                    $$ \underbrace{25^{0.25} \times 25^{0.25} \times \cdots \times 25^{0.25}}_{n \text{ faktor}} = 125 $$
+                </div>
+                maka nilai dari $(n - 3)(n + 2) = \cdots$
+            </div>
+
+            <div class="options-list">
+                <div class="option-item">$\bigcirc \; (A) \; 24$</div>
+                <div class="option-item">$\bigcirc \; (B) \; 26$</div>
+                <div class="option-item">$\bigcirc \; (C) \; 28$</div>
+                <div class="option-item">$\bigcirc \; (D) \; 32$</div>
+                <div class="option-item">$\bigcirc \; (E) \; 36$</div>
+            </div>
+        </div>
+        <div class="mini-footer"><span>SWIPE UNTUK PEMBAHASAN ➡️</span></div>
+    </div>
+
+    <!-- ================= HALAMAN 2: KONSEP DASAR ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="main-title" style="font-size: 32px; background: var(--brand-pink);">STRATEGI PENYELESAIAN 💡</div>
+            
+            <div class="concept-box">
+                Soal ini terlihat menyeramkan karena panjang banget, tapi sebenarnya ini hanya masalah <strong>Eksponen Dasar</strong>!
+            </div>
+
+            <div class="math-box" style="border-style: solid; background: #fff; border-color: var(--brand-dark);">
+                <p style="font-size: 24px; color: #555; margin-bottom: 20px;">Ingat Konsep Perkalian Berulang:</p>
+                <div style="font-size: 36px; margin: 20px 0; color: var(--brand-dark); font-weight: bold;">
+                    $$ \underbrace{a \times a \times a \times \cdots \times a}_{n \text{ kali}} = a^n $$
+                </div>
+                <span style="color: var(--brand-pink); font-size: 22px;">Jika suatu bilangan dikalikan dengan dirinya sendiri sebanyak <br> $n$ faktor, itu sama saja dengan dipangkatkan $n$.</span>
+            </div>
+        </div>
+        <div class="mini-footer"><span>LANJUT SWIPE ➡️</span></div>
+    </div>
+
+    <!-- ================= HALAMAN 3: LANGKAH 1 ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="step-title">LANGKAH 1</div>
+            <div class="step-desc">Terapkan konsep di atas untuk menyederhanakan ruas kiri persamaan.</div>
+            
+            <div class="math-box" style="font-size: 32px; padding-top: 40px;">
+                $$ \underbrace{25^{0.25} \times \cdots \times 25^{0.25}}_{n \text{ faktor}} = 125 $$
+                <br>
+                $$ (25^{0.25})^n = 125 $$
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <div class="highlight-var" style="font-size: 22px;">
+                    💡 <strong>Sifat Eksponen:</strong> $(x^a)^b = x^{a \times b}$
+                </div>
+            </div>
+            
+            <div class="math-box" style="font-size: 32px; margin-top: 20px; background: transparent; border: none; box-shadow: none;">
+                $$ 25^{0.25n} = 125 $$
+            </div>
+        </div>
+        <div class="mini-footer"><span>LANJUT SWIPE ➡️</span></div>
+    </div>
+
+    <!-- ================= HALAMAN 4: LANGKAH 2 ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="step-title">LANGKAH 2</div>
+            <div class="step-desc"><strong>Samakan Basisnya!</strong> Kita ubah angka $25$ dan $125$ agar memiliki bilangan pokok yang sama, yaitu $5$.</div>
+            
+            <div class="math-box" style="font-size: 32px; padding: 40px;">
+                Ingat bahwa: <br>
+                <strong style="color: var(--brand-pink);">$25 = 5^2$</strong> dan <strong style="color: var(--brand-orange);">$125 = 5^3$</strong>
+                <br><br>
+                Substitusikan ke persamaan kita:
+                $$ (5^2)^{0.25n} = 5^3 $$
+            </div>
+
+            <div class="math-box" style="margin-top: 30px; border-color: var(--brand-dark); background: #f8fafc;">
+                Kalikan pangkatnya ($2 \times 0.25 = 0.5$):
+                $$ \boldsymbol{5^{0.5n} = 5^3} $$
+            </div>
+        </div>
+        <div class="mini-footer"><span>LANJUT SWIPE ➡️</span></div>
+    </div>
+
+    <!-- ================= HALAMAN 5: LANGKAH 3 ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="step-title">LANGKAH 3</div>
+            <div class="step-desc">Karena basis ruas kiri dan kanan sudah sama (yaitu $5$), kita tinggal samakan eksponennya (pangkatnya).</div>
+            
+            <div class="math-box" style="font-size: 36px; padding: 40px;">
+                $$ \cancel{5}^{0.5n} = \cancel{5}^3 $$
+                <br>
+                $$ 0.5n = 3 $$
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <div class="highlight-var" style="font-size: 26px; background: #fff3e0; border-color: var(--brand-orange); color: var(--brand-orange);">
+                    Jika $0.5n = 3$, maka: <br>
+                    $n = \frac{3}{0.5} \implies \boldsymbol{n = 6}$
+                </div>
+            </div>
+        </div>
+        <div class="mini-footer"><span>DIKIT LAGI KETEMU! ➡️</span></div>
+    </div>
+
+    <!-- ================= HALAMAN 6: HASIL AKHIR ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="step-title">LANGKAH TERAKHIR</div>
+            <div class="step-desc">Kembali ke pertanyaan utama soal. Kita diminta untuk mencari nilai dari $(n - 3)(n + 2)$.</div>
+            
+            <div class="math-box" style="font-size: 30px; padding: 40px;">
+                Substitusikan nilai $\boldsymbol{n = 6}$:
+                $$ (6 - 3)(6 + 2) $$
+                <br>
+                $$ = (3)(8) $$
+                <br>
+                $$ = 24 $$
+            </div>
+
+            <div class="final-answer-box">
+                <div style="font-size: 32px; font-weight: bold; color: #2E7D32;">
+                    Hasilnya adalah 24
+                </div>
+                <div style="font-size: 24px; margin-top: 10px;">Jawaban yang tepat adalah: <strong>(A)</strong></div>
+            </div>
+        </div>
+        <div class="mini-footer"><span>SWIPE UNTUK LATIHAN ➡️</span></div>
+    </div>
+
+    <!-- ================= HALAMAN 7: LATIHAN SOAL (BONUS) ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="main-title" style="background-color: var(--brand-orange); margin-bottom: 20px;">WAKTUNYA BERLATIH 📝</div>
+            
+            <div class="concept-box" style="background: #fff3e0; border-left-color: var(--brand-orange); color: #d84315; font-size: 24px; margin-bottom: 30px;">
+                Tipe soal seperti ini langganan banget keluar. Coba tes pemahamanmu dengan soal serupa di bawah ini!
+            </div>
+            
+            <div class="question-box" style="font-size: 26px; border-color: var(--brand-orange); padding: 30px;">
+                Jika $n$ memenuhi persamaan:
+                $$ \underbrace{16^{0.25} \times 16^{0.25} \times \cdots \times 16^{0.25}}_{n \text{ faktor}} = 32 $$
+                Maka nilai dari $(n - 2)(n + 1) = \cdots$
+            </div>
+
+            <div class="options-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="option-item" style="font-size: 24px;">A. $\;\;12$</div>
+                <div class="option-item" style="font-size: 24px;">B. $\;\;15$</div>
+                <div class="option-item" style="font-size: 24px;">C. $\;\;18$</div>
+                <div class="option-item" style="font-size: 24px;">D. $\;\;20$</div>
+                <div class="option-item" style="font-size: 24px;">E. $\;\;24$</div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <div style="background: #fff9e6; padding: 15px 30px; border-radius: 50px; display: inline-block; font-size: 24px; font-weight: bold; border: 3px dashed var(--brand-yellow); color: var(--brand-dark);">
+                    👇 Sudah ketemu? Komen di bawah ya! 👇
+                </div>
+            </div>
+        </div>
+        <div class="mini-footer" style="background: var(--brand-orange);"><span>SWIPE UNTUK INFO ➡️</span></div>
+    </div>
+
+    <!-- ================= HALAMAN 8: WEBSITE (OUTRO) ================= -->
+    <div class="instagram-canvas">
+        <div class="header">
+            <div class="exe-text-logo">
+                <div class="exe-main">EXE</div>
+                <div class="exe-sub">
+                    <span>Education</span>
+                    <span>Centre</span>
+                </div>
+            </div>
+            <div class="header-tagline">exeeducentre.com</div>
+        </div>
+
+        <div class="content-area">
+            <div class="outro-container">
+                
+                <div class="profile-circle">
+                    <!-- Logo besar untuk outro juga menggunakan Text Logo agar 100% aman diexport -->
+                    <div class="exe-text-logo" style="flex-direction: column; transform: scale(1.5);">
+                        <div class="exe-main" style="font-size: 70px;">EXE</div>
+                        <div class="exe-sub" style="text-align: center;">
+                            <span style="font-size: 22px;">Education</span>
+                            <span style="font-size: 18px;">Centre</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-text">
+                    Butuh Latihan SNBT Lainnya?
+                    <br>
+                    <span style="font-size: 28px; font-weight: 500; color: #555;">Tanya Admin & Kunjungi Web Kami</span>
+                </div>
+
+                <div class="social-container">
+                    <!-- Website -->
+                    <div class="social-item">
+                        <i class="fas fa-globe text-4xl" style="color: var(--brand-orange);"></i>
+                        exeeducentre.com
+                    </div>
+                    
+                    <!-- WhatsApp -->
+                    <div class="social-item">
+                        <i class="fab fa-whatsapp text-4xl" style="color: #25D366;"></i>
+                        +62 851-4152-5668
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="mini-footer" style="background: var(--brand-pink);"><span>TERIMA KASIH ✨</span></div>
+    </div>
+
+    <!-- SCRIPT EXPORT GAMBAR -->
+    <script>
+        async function exportSemuaSlide() {
+            const overlay = document.getElementById('loading-overlay');
+            const loadingText = document.getElementById('loading-text');
+            const slides = document.querySelectorAll('.instagram-canvas');
+            
+            overlay.style.display = 'flex';
+
+            for (let i = 0; i < slides.length; i++) {
+                loadingText.innerText = `Sedang memproses slide ${i + 1} dari ${slides.length}...`;
+                
+                // Set resolusi ke 1.5 agar tajam namun tidak terlalu berat
+                const canvas = await html2canvas(slides[i], {
+                    scale: 1.5,
+                    useCORS: true, 
+                    backgroundColor: "#ffffff",
+                    logging: false
+                });
+
+                const imgData = canvas.toDataURL('image/png');
+
+                const link = document.createElement('a');
+                link.download = `EXE_SNBT_Slide_${i + 1}.png`;
+                link.href = imgData;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Jeda agar browser tidak mendeteksi unduhan simultan sebagai spam
+                await new Promise(resolve => setTimeout(resolve, 800));
+            }
+
+            loadingText.innerText = 'Selesai! Silakan cek folder Download Anda.';
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
