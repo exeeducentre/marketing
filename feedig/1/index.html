@@ -11,6 +11,13 @@
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
                 packages: {'[+]': ['color', 'cancel', 'boldsymbol']} 
             },
+            options: {
+                // Menonaktifkan fitur menu dan assistive MML agar tidak dobel saat dirender html2canvas
+                enableMenu: false,
+                renderActions: {
+                    assistiveMml: []
+                }
+            },
             loader: {load: ['[tex]/color', '[tex]/cancel', '[tex]/boldsymbol']}
         };
     </script>
@@ -24,6 +31,16 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+        /* FIX UNTUK MATHJAX BERBAYANG (DOBEL) SAAT DI EXPORT */
+        mjx-assistive-mml {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            position: absolute !important;
+            clip: rect(1px, 1px, 1px, 1px) !important;
+            overflow: hidden !important;
+        }
 
         :root {
             /* Warna Corporate EXE */
@@ -75,44 +92,10 @@
             justify-content: space-between;
         }
 
-        /* TEXT LOGO SEBAGAI SOLUSI CORS */
-        .exe-text-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .exe-text-logo .exe-main {
-            font-size: 55px;
-            font-weight: 900;
-            letter-spacing: -2px;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-        }
-        
-        .exe-text-logo .exe-sub {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .exe-text-logo .exe-sub span:first-child {
-            color: var(--brand-dark);
-            font-size: 20px;
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: 2px;
-        }
-        
-        .exe-text-logo .exe-sub span:last-child {
-            color: var(--brand-pink);
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: 1px;
+        .logo-img {
+            height: 90px; 
+            width: auto;
+            object-fit: contain;
         }
 
         .header-tagline {
@@ -268,47 +251,53 @@
         }
 
         .profile-circle {
-            width: 250px; 
-            height: 250px;
+            width: 170px; 
+            height: 170px;
             background-color: #fff;
             border-radius: 50%;
-            margin-bottom: 40px;
-            border: 8px solid var(--brand-pink);
+            margin-bottom: 15px;
+            border: 6px solid var(--brand-pink);
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 10px 25px rgba(216, 27, 96, 0.2);
             padding: 20px;
         }
+
+        .profile-circle img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
         
         .cta-text {
-            font-size: 42px;
+            font-size: 30px;
             font-weight: 800;
             color: var(--brand-dark);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.4;
         }
 
         .social-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             width: 100%;
-            max-width: 700px;
+            max-width: 650px;
         }
 
         .social-item {
             display: flex;
             align-items: center;
             gap: 20px;
-            font-size: 30px;
+            font-size: 26px;
             font-weight: 700;
             color: var(--brand-dark);
             background: #fff;
             border: 3px solid var(--brand-dark);
-            padding: 20px 40px;
+            padding: 15px 30px;
             border-radius: 50px;
-            box-shadow: 6px 6px 0px rgba(31,32,34,0.1);
+            box-shadow: 4px 4px 0px rgba(31,32,34,0.1);
             justify-content: center;
         }
 
@@ -398,14 +387,7 @@
     <!-- ================= HALAMAN 1: SOAL UTAMA ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <!-- PURE TEXT LOGO, ANTI-CORS & HIGH QUALITY -->
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -435,13 +417,7 @@
     <!-- ================= HALAMAN 2: KONSEP DASAR ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -466,13 +442,7 @@
     <!-- ================= HALAMAN 3: LANGKAH 1 ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -502,13 +472,7 @@
     <!-- ================= HALAMAN 4: LANGKAH 2 ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -535,13 +499,7 @@
     <!-- ================= HALAMAN 5: LANGKAH 3 ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -568,13 +526,7 @@
     <!-- ================= HALAMAN 6: HASIL AKHIR ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -604,13 +556,7 @@
     <!-- ================= HALAMAN 7: LATIHAN SOAL (BONUS) ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -647,13 +593,7 @@
     <!-- ================= HALAMAN 8: WEBSITE (OUTRO) ================= -->
     <div class="instagram-canvas">
         <div class="header">
-            <div class="exe-text-logo">
-                <div class="exe-main">EXE</div>
-                <div class="exe-sub">
-                    <span>Education</span>
-                    <span>Centre</span>
-                </div>
-            </div>
+            <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="Logo EXE" class="logo-img">
             <div class="header-tagline">exeeducentre.com</div>
         </div>
 
@@ -661,33 +601,38 @@
             <div class="outro-container">
                 
                 <div class="profile-circle">
-                    <!-- Logo besar untuk outro juga menggunakan Text Logo agar 100% aman diexport -->
-                    <div class="exe-text-logo" style="flex-direction: column; transform: scale(1.5);">
-                        <div class="exe-main" style="font-size: 70px;">EXE</div>
-                        <div class="exe-sub" style="text-align: center;">
-                            <span style="font-size: 22px;">Education</span>
-                            <span style="font-size: 18px;">Centre</span>
-                        </div>
-                    </div>
+                    <img src="https://images2.imgbox.com/cb/4d/m8Sx92kQ_o.png" alt="EXE Education Centre">
                 </div>
 
                 <div class="cta-text">
                     Butuh Latihan SNBT Lainnya?
                     <br>
-                    <span style="font-size: 28px; font-weight: 500; color: #555;">Tanya Admin & Kunjungi Web Kami</span>
+                    <span style="font-size: 26px; font-weight: 500; color: #555;">Tanya Admin & Kunjungi Media Sosial Kami</span>
                 </div>
 
                 <div class="social-container">
                     <!-- Website -->
                     <div class="social-item">
-                        <i class="fas fa-globe text-4xl" style="color: var(--brand-orange);"></i>
+                        <i class="fas fa-globe" style="color: var(--brand-orange); font-size: 34px;"></i>
                         exeeducentre.com
                     </div>
                     
                     <!-- WhatsApp -->
                     <div class="social-item">
-                        <i class="fab fa-whatsapp text-4xl" style="color: #25D366;"></i>
+                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 34px;"></i>
                         +62 851-4152-5668
+                    </div>
+
+                    <!-- Instagram -->
+                    <div class="social-item">
+                        <i class="fab fa-instagram" style="color: #E1306C; font-size: 34px;"></i>
+                        @exe_educentre
+                    </div>
+
+                    <!-- TikTok -->
+                    <div class="social-item">
+                        <i class="fab fa-tiktok" style="color: #000000; font-size: 34px;"></i>
+                        @exeeducentre
                     </div>
                 </div>
 
@@ -704,6 +649,28 @@
             const slides = document.querySelectorAll('.instagram-canvas');
             
             overlay.style.display = 'flex';
+            loadingText.innerText = 'Menyiapkan gambar logo...';
+
+            // JEMBATAN SEMENTARA: Agar Imgbox bisa diexport ke canvas tanpa error CORS
+            const allImages = document.querySelectorAll('img');
+            const originalSrcs = new Map();
+            let promises = [];
+            
+            allImages.forEach(img => {
+                if (img.src.includes('imgbox.com')) {
+                    originalSrcs.set(img, img.src);
+                    img.crossOrigin = "anonymous";
+                    img.src = "https://wsrv.nl/?url=" + encodeURIComponent(img.src);
+                    
+                    let p = new Promise(resolve => {
+                        img.onload = resolve;
+                        img.onerror = resolve;
+                    });
+                    promises.push(p);
+                }
+            });
+            
+            await Promise.all(promises);
 
             for (let i = 0; i < slides.length; i++) {
                 loadingText.innerText = `Sedang memproses slide ${i + 1} dari ${slides.length}...`;
@@ -728,6 +695,12 @@
                 // Jeda agar browser tidak mendeteksi unduhan simultan sebagai spam
                 await new Promise(resolve => setTimeout(resolve, 800));
             }
+            
+            // Kembalikan ke link aslinya
+            originalSrcs.forEach((src, img) => {
+                img.removeAttribute('crossorigin');
+                img.src = src;
+            });
 
             loadingText.innerText = 'Selesai! Silakan cek folder Download Anda.';
             
